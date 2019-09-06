@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.example.demo.repository.CommentMapper">
+
+
+<select id="getAll" resultType="com.example.demo.domain.CommentVO" >
+        select 	c_idx, 
+        		b_idx, 
+        		contents,
+        		author
+        from 	comment
+    </select>
+    
+    <select id="getComment" resultType="com.example.demo.domain.CommentVO" >
+        select 	c_idx, 
+        		b_idx, 
+        		contents,
+        		author
+        from 	comment
+        where 
+        		b_idx = #{b_idx}
+    </select>
+    
+    <select id="getByCidx" resultType="com.example.demo.domain.CommentVO" >
+        select 	c_idx, 
+        		b_idx, 
+        		contents,
+        		author
+        from 	comment
+        where 
+        		c_idx = #{c_idx}
+    </select>
+    
+
+    <insert id="addComment" >
+        insert into comment (b_idx, author, contents)  
+        values 
+        		( #{b_idx}, #{author}, #{contents})
+    </insert>
+    
+    <update id="editComment" parameterType="com.example.demo.domain.CommentVO">
+        update  comment
+        set		
+        		author = #{author}, 
+        		contents = #{contents}
+        where   
+        		c_idx = #{c_idx}
+    </update>
+    
+    <delete id="deleteComment" parameterType="int">
+    	delete 
+    	from	comment
+    	where 
+    			c_idx = #{c_idx}
+    </delete>
+</mapper>
